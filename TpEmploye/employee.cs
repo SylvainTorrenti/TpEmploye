@@ -15,14 +15,14 @@ namespace TpEmploye
         private string _lastName;
         private DateOnly _birthDate;
         private DateOnly _hiredDate;
-        private int _salary;
+        private double _salary;
         #endregion
         #region Constructor
         public employee(int registration, string firstName, string lastName, DateOnly birthDate, DateOnly hiredDate, int salary)
         {
             _registration = registration;
-            _firstName = firstName;
-            _lastName = lastName;
+            _firstName = firstName[0].ToString().ToUpper() + firstName.Substring(1).ToLower();
+            _lastName = lastName.ToUpper();
             _birthDate = birthDate;
             _hiredDate = hiredDate;
             _salary = salary;
@@ -44,7 +44,7 @@ namespace TpEmploye
         public DateOnly HiredDate { get => _hiredDate; set => _hiredDate = value; }
         #endregion
         #region Get & Set Salary
-        public int Salary { get => _salary; set => _salary = value; }
+        public double Salary { get => _salary; set => _salary = value; }
         #endregion
         public int Age()
         {
@@ -60,7 +60,33 @@ namespace TpEmploye
         }
         public void WageIncrease()
         {
+            double Retir;
+            if (Retirement() < 5)
+            {
+                Retir = Salary * 0.02;
+                _salary = Salary + Retir;
+            }
+            if (Retirement() < 10)
+            {
+                Retir = Salary * 0.05;
+                _salary= Salary + Retir;
+            }
+            else
+            {
+                Retir = Salary * 0.1;
+                _salary= Salary + Retir;
+            }
 
         }
+        public void DisplayEmployee()
+        {
+            Console.WriteLine($"Matricule : {Registration}");
+            Console.WriteLine($"Nom complet : {LastName} {FirstName}");
+            Console.WriteLine($"Age : {Age()}");
+            Console.WriteLine($"Ancienneté : {Retirement()}");
+            Console.WriteLine($"Salaire : {Salary}");
+            Console.WriteLine();
+        }
+
     }
 }
